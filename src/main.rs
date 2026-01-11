@@ -310,8 +310,8 @@ fn main() {
 
     println!("***Antes do treinamento***");
     println!("O custo do neurônio : {}", cost);
-    println!("O valor do wheight 1  : {}", neuron.weights[0]);
-    println!("O valor do wheight 2  : {}", neuron.weights[1]);
+    println!("O valor do weight 1  : {}", neuron.weights[0]);
+    println!("O valor do weight 2  : {}", neuron.weights[1]);
     println!("O valor do bias     : {}", neuron.bias);
 
     for _i in 0..50000 {
@@ -322,8 +322,8 @@ fn main() {
 
     println!("***Depois do treinamento***");
     println!("O custo do neurônio : {}", cost);
-    println!("O valor do wheight 1 : {}", neuron.weights[0]);
-    println!("O valor do wheight 2  : {}", neuron.weights[1]);
+    println!("O valor do weight 1 : {}", neuron.weights[0]);
+    println!("O valor do weight 2  : {}", neuron.weights[1]);
     println!("O valor do bias     : {}", neuron.bias);
 
 
