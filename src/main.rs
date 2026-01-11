@@ -15,8 +15,8 @@ use num::pow;
  * - Cálculo de gradiente por diferenças finitas
  * - Treinamento por gradiente descendente
  *
- * O neurônio aprende a relação linear y = 2.5x + 6
- * a partir de exemplos de entrada/saída.
+ * O neurônio aprende a relação linear y = 3x₁ + 2x₂ + 5
+ * a partir de exemplos de entrada/saída (2 entradas, 1 saída).
  *
  * Objetivo educacional: mostrar como tudo funciona "por baixo".
  */
@@ -255,7 +255,6 @@ fn train(
     y: &Vec<f32>, 
     sample_size: usize
 ) {
-
     let mut gradient;
 
     for i in 0..neuron.n_connections as usize {
@@ -268,65 +267,69 @@ fn train(
     gradient = comput_gradient(neuron, cost, x, y, param, sample_size);
     neuron.bias -= 0.001 * gradient;
 
-
 }
 
 /*
  * Função principal - ponto de entrada do programa.
  *
  * Demonstra o treinamento de um perceptron para aprender
- * a função linear y = 2.5x + 6.
+ * a função linear y = 3x₁ + 2x₂ + 5 (2 entradas, 1 saída).
  *
  * Fluxo de execução:
- *   1. Cria um neurônio com 1 conexão e pesos aleatórios
- *   2. Define dados de treinamento (x, y) da função y = 2.5x + 6
+ *   1. Cria um neurônio com 2 conexões e pesos aleatórios
+ *   2. Define dados de treinamento (x₁, x₂, y) da função y = 3x₁ + 2x₂ + 5
  *   3. Exibe o custo inicial (antes do treinamento)
  *   4. Treina o neurônio por 50.000 iterações
  *   5. Exibe o custo final e os parâmetros aprendidos
+ *   6. Exibe os dados de teste para verificação
  *
  * Resultado esperado após treinamento:
- *   - weight ≈ 2.5 (coeficiente angular)
- *   - bias ≈ 6.0 (termo independente)
+ *   - weight₁ ≈ 3.0 (coeficiente de x₁)
+ *   - weight₂ ≈ 2.0 (coeficiente de x₂)
+ *   - bias ≈ 5.0 (termo independente)
  *   - custo ≈ 0 (erro mínimo)
  */
 fn main() {
+    const SAMPLE_SIZE: usize = 5;
 
     let mut neuron = init_neuron(ident, 2);
 
     let x = vec![
-        vec![0.0], 
-        vec![2.0], 
-        vec![4.0], 
-        vec![6.0]
+        vec![0.0, 0.0], 
+        vec![2.0, 15.0], 
+        vec![8.0, 3.0], 
+        vec![14.0, 18.0],
+        vec![20.0, 1.0]
     ]; // Amostras de entrada
-    let out_true = vec![6.0, 11.0, 16.0, 21.0]; // Saídas esperada de cada amostra (gabarito)
+    let out_true = vec![5.0, 41.0, 35.0, 83.0, 67.0]; // Saídas esperada de cada amostra (gabarito)
 
     // neuron.weights[0] = 2.5;
     // neuron.bias = 6.0;
 
-    let mut cost = comput_cost(&neuron, &x, out_true.clone(), mse, 4);
+    let mut cost = comput_cost(&neuron, &x, out_true.clone(), mse, SAMPLE_SIZE);
 
     println!("***Antes do treinamento***");
     println!("O custo do neurônio : {}", cost);
-
-    println!("O valor do wheight  : {}", neuron.weights[0]);
+    println!("O valor do wheight 1  : {}", neuron.weights[0]);
+    println!("O valor do wheight 2  : {}", neuron.weights[1]);
     println!("O valor do bias     : {}", neuron.bias);
 
     for _i in 0..50000 {
-        train(&mut neuron, mse, &x, &out_true, 4);
+        train(&mut neuron, mse, &x, &out_true, SAMPLE_SIZE);
     }
 
-    cost = comput_cost(&neuron, &x, out_true.clone(), mse, 4);
+    cost = comput_cost(&neuron, &x, out_true.clone(), mse, SAMPLE_SIZE);
 
     println!("***Depois do treinamento***");
     println!("O custo do neurônio : {}", cost);
-    println!("O valor do wheight  : {}", neuron.weights[0]);
+    println!("O valor do wheight 1 : {}", neuron.weights[0]);
+    println!("O valor do wheight 2  : {}", neuron.weights[1]);
     println!("O valor do bias     : {}", neuron.bias);
 
 
     println!("*** Testes ***");
-    for i in 0..4 {
-        println!("Entrada {} - Saída {}", x[i][0], out_true[i]);
+    for i in 0..SAMPLE_SIZE {
+        println!("Entradas {} {} - Saída {}", x[i][0], x[i][1], out_true[i]);
     }
     
 }

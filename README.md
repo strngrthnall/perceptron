@@ -30,13 +30,15 @@ O objetivo principal é **aprender os fundamentos de redes neurais** construindo
 
 ### Como funciona
 
-O perceptron implementado é capaz de aprender funções lineares através do algoritmo de **gradiente descendente**:
+O perceptron implementado é capaz de aprender funções lineares com **múltiplas entradas** através do algoritmo de **gradiente descendente**:
 
-1. **Inicialização**: Pesos e bias são inicializados com valores aleatórios
+1. **Inicialização**: Pesos (um para cada entrada) e bias são inicializados com valores aleatórios
 2. **Forward Pass**: Calcula a saída do neurônio: `y = f(Σ(xᵢ × wᵢ) + bias)`
 3. **Cálculo do Custo**: Mede o erro usando MSE (Mean Squared Error)
-4. **Cálculo do Gradiente**: Usa diferenças finitas para aproximar a derivada
-5. **Atualização**: Ajusta pesos e bias na direção que reduz o erro
+4. **Cálculo do Gradiente**: Usa diferenças finitas para aproximar a derivada parcial de cada parâmetro
+5. **Atualização**: Ajusta todos os pesos e o bias na direção que reduz o erro
+
+**Exemplo atual**: O neurônio aprende a função `y = 3x₁ + 2x₂ + 5` com 2 entradas.
 
 > ⚠️ **Nota:** Este é um projeto de **estudo** e não deve ser utilizado em produção. O foco está no aprendizado dos conceitos fundamentais de redes neurais artificiais.
 
@@ -54,6 +56,7 @@ O perceptron implementado é capaz de aprender funções lineares através do al
 ## ✨ Funcionalidades
 
 - [x] Estrutura básica do Neurônio (Perceptron)
+- [x] Suporte a múltiplas entradas (n conexões)
 - [x] Inicialização de pesos e bias aleatórios
 - [x] Função de ativação (Identidade)
 - [x] Computação de saída do neurônio
@@ -115,22 +118,31 @@ cargo run
 
 ### Saída Esperada
 
-O programa treina um neurônio para aprender a função linear `y = 2.5x + 6`:
+O programa treina um neurônio com **2 entradas** para aprender a função linear `y = 3x₁ + 2x₂ + 5`:
 
 ```
 ***Antes do treinamento***
-O custo do neurônio : 248.5    (valor aleatório)
-O valor do wheight  : 0.42     (peso aleatório)
-O valor do bias     : -0.78    (bias aleatório)
+O custo do neurônio : 1842.5     (valor aleatório alto)
+O valor do wheight 1  : 0.42     (peso aleatório)
+O valor do wheight 2  : -0.31    (peso aleatório)
+O valor do bias       : -0.78    (bias aleatório)
 
 ***Depois do treinamento***
-O custo do neurônio : ~0       (erro mínimo)
-O valor do wheight  : ~2.5     (coeficiente angular aprendido)
-O valor do bias     : ~6.0     (termo independente aprendido)
+O custo do neurônio : ~0         (erro mínimo)
+O valor do wheight 1 : ~3.0      (coeficiente de x₁ aprendido)
+O valor do wheight 2 : ~2.0      (coeficiente de x₂ aprendido)
+O valor do bias      : ~5.0      (termo independente aprendido)
+
+*** Testes ***
+Entradas 0 0 - Saída 5       (0×3 + 0×2 + 5 = 5)
+Entradas 2 15 - Saída 41     (2×3 + 15×2 + 5 = 41)
+Entradas 8 3 - Saída 35      (8×3 + 3×2 + 5 = 35)
+Entradas 14 18 - Saída 83    (14×3 + 18×2 + 5 = 83)
+Entradas 20 1 - Saída 67     (20×3 + 1×2 + 5 = 67)
 ```
 
 > 💡 Os valores iniciais são aleatórios, mas após 50.000 iterações de treinamento,
-> o neurônio converge para os parâmetros corretos da função `y = 2.5x + 6`.
+> o neurônio converge para os parâmetros corretos da função `y = 3x₁ + 2x₂ + 5`.
 
 ---
 
