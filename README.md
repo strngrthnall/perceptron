@@ -28,6 +28,16 @@ Este projeto é uma implementação de um **Perceptron** em **Rust**, baseado na
 
 O objetivo principal é **aprender os fundamentos de redes neurais** construindo tudo do zero, sem depender de bibliotecas de Machine Learning como TensorFlow ou PyTorch. Aqui, optamos por reescrever o projeto em **Rust** para explorar as vantagens da linguagem em termos de segurança de memória e performance.
 
+### Como funciona
+
+O perceptron implementado é capaz de aprender funções lineares através do algoritmo de **gradiente descendente**:
+
+1. **Inicialização**: Pesos e bias são inicializados com valores aleatórios
+2. **Forward Pass**: Calcula a saída do neurônio: `y = f(Σ(xᵢ × wᵢ) + bias)`
+3. **Cálculo do Custo**: Mede o erro usando MSE (Mean Squared Error)
+4. **Cálculo do Gradiente**: Usa diferenças finitas para aproximar a derivada
+5. **Atualização**: Ajusta pesos e bias na direção que reduz o erro
+
 > ⚠️ **Nota:** Este é um projeto de **estudo** e não deve ser utilizado em produção. O foco está no aprendizado dos conceitos fundamentais de redes neurais artificiais.
 
 ---
@@ -48,7 +58,8 @@ O objetivo principal é **aprender os fundamentos de redes neurais** construindo
 - [x] Função de ativação (Identidade)
 - [x] Computação de saída do neurônio
 - [x] Função de custo MSE (Mean Squared Error)
-- [ ] Algoritmo de treinamento (Backpropagation)
+- [x] Cálculo de gradiente por diferenças finitas
+- [x] Algoritmo de treinamento (Gradiente Descendente)
 - [ ] Múltiplas funções de ativação (Sigmoid, ReLU, Tanh)
 - [ ] Múltiplas camadas (MLP - Multi-Layer Perceptron)
 
@@ -72,6 +83,9 @@ perceptron/
 | `init_neuron()` | Inicializa um neurônio com pesos e bias aleatórios |
 | `comput_out()` | Calcula a saída do neurônio dado um vetor de entrada |
 | `mse()` | Calcula o erro quadrático médio (Mean Squared Error) |
+| `comput_cost()` | Calcula o custo total do neurônio para um conjunto de amostras |
+| `comput_gradient()` | Calcula o gradiente de um parâmetro usando diferenças finitas |
+| `train()` | Treina o neurônio usando gradiente descendente |
 | `randomize()` | Gera valores aleatórios em um intervalo |
 
 ---
@@ -101,11 +115,22 @@ cargo run
 
 ### Saída Esperada
 
+O programa treina um neurônio para aprender a função linear `y = 2.5x + 6`:
+
 ```
-O valor do wheight é: 2.5
-O valor do bias é: 6
-O custo do neurônio é: 0
+***Antes do treinamento***
+O custo do neurônio : 248.5    (valor aleatório)
+O valor do wheight  : 0.42     (peso aleatório)
+O valor do bias     : -0.78    (bias aleatório)
+
+***Depois do treinamento***
+O custo do neurônio : ~0       (erro mínimo)
+O valor do wheight  : ~2.5     (coeficiente angular aprendido)
+O valor do bias     : ~6.0     (termo independente aprendido)
 ```
+
+> 💡 Os valores iniciais são aleatórios, mas após 50.000 iterações de treinamento,
+> o neurônio converge para os parâmetros corretos da função `y = 2.5x + 6`.
 
 ---
 
