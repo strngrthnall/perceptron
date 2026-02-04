@@ -49,7 +49,7 @@ fn main() {
     const SAMPLE_SIZE: usize = 6;
     const CONNECTIONS: u32 = 2;
 
-    let mut neuron = init_neuron(sigmoid, CONNECTIONS);
+    let mut neuron = Neuron::new(sigmoid, CONNECTIONS);
 
     // Dados de treinamento: amostras de entrada (x₁, x₂)
     let x = vec![
@@ -94,7 +94,7 @@ fn main() {
 
     println!("*** Testes ***");
     for i in 0..SAMPLE_SIZE {
-        println!("Entrada {} {} - Saída {}", x[i][0], x[i][1], compute_out(&neuron, &x[i]));
+        println!("Entrada {} {} - Saída {}", x[i][0], x[i][1], neuron.compute_out(&x[i]));
     }
     
 }

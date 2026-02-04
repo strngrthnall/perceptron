@@ -35,7 +35,7 @@ pub fn compute_cost(
     let mut out_pred: Vec<f32> = Vec::new();
 
     for i in 0..sample_size {
-        out_pred.push(compute_out(&neuron, &x[i]));
+        out_pred.push(neuron.compute_out(&x[i]));
     }
     cost(y, &out_pred, sample_size)
 }

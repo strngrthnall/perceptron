@@ -30,49 +30,53 @@ pub struct Neuron {
     pub act_func: fn(f32) -> f32    // Função de ativação
 }
 
-/*
- * Computa o valor de saída do neurônio.
- *
- * Parâmetros:
- *   neuron - neurônio a ser computado
- *   x - vetor de entrada
- *
- * Retorno:
- *   Valor de saída do neurônio
- */
-
-pub fn compute_out(neuron: &Neuron, x: &Vec<f32>) -> f32 {
-    let mut weighted_sum = 0.0;
+impl Neuron {
     
-    for i in 0..neuron.n_connections {
-        weighted_sum += x[i as usize] * neuron.weights[i as usize];
-    }
-    weighted_sum += neuron.bias;
-    (neuron.act_func)(weighted_sum)
-}
-
-/*
- * Cria um neurônio e inicializa seus pesos e bias.
- *
- * Parâmetros:
- *   act_func - a função de ativação do neurônio
- *   n_connections - número de conexões do neurônio
- *
- * Retorno:
- *   O neurônio criado.
- */
-
-pub fn init_neuron(act_func: fn(f32) -> f32, n_connections: u32) -> Neuron {
-    let mut weights: Vec<f32> = Vec::new();
-
-    for _i in 0..n_connections {
-        weights.push(randomize(-1.0, 1.0));
+    /*
+     * Computa o valor de saída do neurônio.
+     *
+     * Parâmetros:
+     *   neuron - neurônio a ser computado
+     *   x - vetor de entrada
+     *
+     * Retorno:
+     *   Valor de saída do neurônio
+     */
+    
+    pub fn compute_out(&self, x: &Vec<f32>) -> f32 {
+        let mut weighted_sum = 0.0;
+        
+        for i in 0..self.n_connections {
+            weighted_sum += x[i as usize] * self.weights[i as usize];
+        }
+        weighted_sum += self.bias;
+        (self.act_func)(weighted_sum)
     }
     
-    Neuron {
-        act_func,
-        n_connections,
-        weights,
-        bias: randomize(-1.0, 1.0)
+    /*
+     * Cria um neurônio e inicializa seus pesos e bias.
+     *
+     * Parâmetros:
+     *   act_func - a função de ativação do neurônio
+     *   n_connections - número de conexões do neurônio
+     *
+     * Retorno:
+     *   O neurônio criado.
+     */
+    pub fn new(act_func: fn(f32) -> f32, n_connections: u32) -> Self {
+        let mut weights: Vec<f32> = Vec::new();
+    
+        for _i in 0..n_connections {
+            weights.push(randomize(-1.0, 1.0));
+        }
+        
+        Self {
+            act_func,
+            n_connections,
+            weights,
+            bias: randomize(-1.0, 1.0)
+        }
     }
 }
+
+
