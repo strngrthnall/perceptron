@@ -25,7 +25,7 @@
 
 ## 📖 Sobre
 
-Este projeto é uma implementação de um **Perceptron** em **Rust**, baseado nas aulas do canal **[Do Zero](https://www.youtube.com/@dozero)** no YouTube, onde a implementação original é feita em **C**.
+Este projeto é uma implementação de um **Perceptron** em **Rust**, baseado nas aulas do canal **[Do Zero](https://www.youtube.com/@DoZero-k3d)** no YouTube, onde a implementação original é feita em **C**.
 
 O objetivo principal é **aprender os fundamentos de redes neurais** construindo tudo do zero, sem depender de bibliotecas de Machine Learning como TensorFlow ou PyTorch. Aqui, optamos por reescrever o projeto em **Rust** para explorar as vantagens da linguagem em termos de segurança de memória e performance.
 
@@ -166,7 +166,7 @@ Entrada 8 5 - Saída ~6.0
 
 ## 📚 Referências
 
-- 🎥 **Canal Do Zero** - [YouTube](https://www.youtube.com/@dozero)
+- 🎥 **Canal Do Zero** - [YouTube](https://www.youtube.com/@DoZero-k3d)
   - Série de vídeos sobre implementação de redes neurais em C
 - � **Repositório Original (C)** - [GitHub](https://github.com/acsfranco/dozero)
   - Implementação original em C do canal Do Zero
